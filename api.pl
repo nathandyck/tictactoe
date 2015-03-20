@@ -50,7 +50,7 @@ get '/api/move/:game_id/:move' => sub {
     if ($game) {
         $results = $game->move($move);
         # TODO: return stuff
-        if (($results eq 'No winner yet') || ($results =~ /Player: [0..1] wins/)) {
+        if (($results eq 'No winner yet') || ($results =~ /^Player: [0..1] wins$/)) {
             $success = \1;
         } else {
             $success = \0;
