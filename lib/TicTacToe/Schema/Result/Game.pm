@@ -74,8 +74,7 @@ sub status {
                 position => { -in => $win },
             })->count;
             
-            #say "Checking player $player against $win, found $found matches";
-            
+            #match 3 out of 3 FTW
             if ($found == 3) {
                 return "Player: $player wins";
             }
