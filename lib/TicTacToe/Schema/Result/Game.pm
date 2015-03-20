@@ -23,6 +23,17 @@ sub move {
     my $self = shift;
     my $position = shift;
     
+    #see if there is already a winner
+    my $status = $self->status;
+    if ($status =~ /Player: [0..1] wins/) {
+        return "Game is already over: $status"
+    }
+    
+    #see if the board is filled
+    if ($self->moves->count == 9) {
+        return "Board is full with no winner. Cat's game.";
+    }
+    
     #figure out whos turn it it
     my $player;
     if ($self->search_related('moves',{ player => 0 })->count <= $self->search_related('moves',{ player => 1 })->count) {
