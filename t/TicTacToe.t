@@ -1,10 +1,11 @@
 #!/usr/bin/perl
  
 use local::lib;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
 use Modern::Perl;
 use Test::More;
-use lib "lib";  #TODO: need a better directory agnostic way
-use lib "../lib";  #TODO: need a better directory agnostic way
+
 
 require_ok('TicTacToe');
 require_ok('TicTacToe::Schema');

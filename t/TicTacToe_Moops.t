@@ -4,8 +4,9 @@ use strict;
 use warnings;
 
 use local::lib;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
 use Moops;
-use lib "lib";  #TODO: need a better directory agnostic way
 
 
 

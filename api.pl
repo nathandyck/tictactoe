@@ -1,9 +1,10 @@
 #!/usr/bin/perl
 use local::lib;
+use FindBin;
+use lib "$FindBin::Bin/lib";
 use Mojolicious::Lite;
 use Mojo::JSON;
 use DBIx::Class;
-use lib 'lib';
 use TicTacToe;
 use TicTacToe::Schema; 
 
