@@ -45,14 +45,20 @@ get '/api/move/:game_id/:move' => sub {
     
     my $game = $self->schema->resultset('Game')->find($game_id);
     
+    my $success;
+    my $results;
     if ($game) {
-        my $results = $game->move($move);
-        
+        $results = $game->move($move);
         # TODO: return stuff
+        if (($results eq 'No winner yet') || ($results =~ /Player: [0..1] wins/)) {
+            $success = \1;
+        } else {
+            $success = \0;
+        }
         
-        return $self->render(json => { success => \1, game_id => $game->id });
+        return $self->render(json => { success => $success, message => $results, game_id => $game->id });
     } else {
-        $self->render(json => { success => \0, error => 'Invalid game_id' });
+        $self->render(json => { success => \0, message => "Invalid game_id: $game_id" });
     }
 };
 
