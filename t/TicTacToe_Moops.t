@@ -15,9 +15,9 @@ my $schema = TicTacToe::Schema->connect('dbi:SQLite::memory:');
 $schema->deploy;
 
 
-my $x = TicTacToe->new({ schema => $schema });
-my $vals = $x->newgame;
-is($vals->{game_id},1,'Created new game');
+my $game = TicTacToe->new({ schema => $schema });
+$game->newgame;
+is($game->game_id,1,'Created new game');
 #is($game->move(1),'No winner yet','Basic Move');
 #is($game->move(1),'Move already taken','Duplicate Move');
 #is($game->move(10),'Invalid Move','Out of Range Move (High)');

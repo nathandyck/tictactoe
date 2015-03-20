@@ -13,13 +13,19 @@ class TicTacToe {
         required => 1,
         isa => InstanceOf ['DBIx::Class::Schema'],
     );
+    has success => ( is => 'rw', isa => Int);
+    has game_id => ( is => 'rw', isa => Int);
+    has message => ( is => 'rw', isa => Str);
     
     method newgame () {
         my $game = $self->schema->resultset('Game')->create({});
         if ($game) {
-            return ({ success => \1, game_id => $game->id });
+            $self->success(1);
+            $self->game_id($game->id);
+            $self->message('New game created');
         } else {
-            return ({ success => \0, message => 'Unable to create game' });
+            $self->success(0);
+            $self->message('Unable to create game');
         }
     }
     
