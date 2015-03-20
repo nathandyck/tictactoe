@@ -31,8 +31,11 @@ get '/api/newgame' => sub {
     my $self = shift;
     
     my $game = $self->schema->resultset('Game')->create({});
-    
-    return $self->render(json => {game_id => $game->id});
+    if ($game) {
+        return $self->render(json => { success => \1, game_id => $game->id});
+    } else {
+        return $self->render(json => { success => \0, message => 'Unable to create game'});
+    }
 };
 
 get '/api/move/:game_id/:player/:move' => sub {
@@ -48,9 +51,9 @@ get '/api/move/:game_id/:player/:move' => sub {
         
         # TODO: return stuff
         
-        return $self->render(json => { success => $game->id });
+        return $self->render(json => { success => \1, game_id => $game->id });
     } else {
-        $self->render(json => { error => 'Invalid game_id' });
+        $self->render(json => { success => \0, error => 'Invalid game_id' });
     }
 };
 
