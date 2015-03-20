@@ -18,12 +18,17 @@ $schema->deploy;
 my $game = TicTacToe->new({ schema => $schema });
 $game->newgame;
 is($game->game_id,1,'Created new game');
-#is($game->move(1),'No winner yet','Basic Move');
-#is($game->move(1),'Move already taken','Duplicate Move');
-#is($game->move(10),'Invalid Move','Out of Range Move (High)');
-#is($game->move(-1),'Invalid Move','Out of Range Move (Low)');
-#$game->move(4); # O
-#$game->move(2); # X
-#$game->move(5); # O
-#is($game->move(3),'Player: 0 wins','Basic position 123 win');
+$game->move(1);
+is($game->message,'No winner yet','Basic Move');
+$game->move(1);
+is($game->message,'Move already taken','Duplicate Move');
+$game->move(10);
+is($game->message,'Invalid Move','Out of Range Move (High)');
+$game->move(-1);
+is($game->message,'Invalid Move','Out of Range Move (Low)');
+$game->move(4); # O
+$game->move(2); # X
+$game->move(5); # O
+$game->move(3); # X
+is($game->message,'Player: 0 wins','Basic position 123 win');
 done_testing();

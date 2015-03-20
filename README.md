@@ -65,3 +65,4 @@ Returns:
 * Invalid Move
 * Move already taken
 * Game is already over: Player: 0 wins
+* Invalid game_id

@@ -30,12 +30,23 @@ class TicTacToe {
     }
     
     method move (Int $move) {
-        # check move
-        
-        #save db
-        
-        #return status
-        
+        my $game = $self->schema->resultset('Game')->find($self->game_id);
+        if ($game) {
+            $self->message($game->move($move));
+            
+            if (
+                ($self->message eq 'No winner yet') ||
+                ($self->message =~ /^Player: [0..1] wins$/) ||
+                ($self->message eq 'Board is full with no winner. Cat\'s game.')
+            ) {
+                $self->success(1);
+            } else {
+                $self->success(0);
+            }
+        } else {
+            $self->success(0);
+            $self->message('Invalid game_id');
+        }
     }
 
 }
