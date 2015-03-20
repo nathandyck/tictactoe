@@ -38,16 +38,15 @@ get '/api/newgame' => sub {
     }
 };
 
-get '/api/move/:game_id/:player/:move' => sub {
+get '/api/move/:game_id/:move' => sub {
     my $self = shift;
     my $game_id  = $self->stash('game_id');
-    my $player  = $self->stash('player');
     my $move  = $self->stash('move');
     
     my $game = $self->schema->resultset('Game')->find($game_id);
     
     if ($game) {
-        my $results = $game->move($player,$move);
+        my $results = $game->move($move);
         
         # TODO: return stuff
         

@@ -21,11 +21,15 @@ my $wins = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
 
 sub move {
     my $self = shift;
-    my $player = shift;
     my $position = shift;
     
-    #TODO: make sure it's their turn
-    
+    #figure out whos turn it it
+    my $player;
+    if ($self->search_related('moves',{ player => 0 })->count <= $self->search_related('moves',{ player => 1 })->count) {
+        $player = 0;
+    } else {
+        $player = 1;
+    }
     
     #check for valid position on the board
     if (($position < 1) || ($position > 9)) {
