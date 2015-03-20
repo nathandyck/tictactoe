@@ -27,7 +27,7 @@ get '/' => sub {
   $c->render(text => 'TicTacToe API Example');
 };
 
-get '/api/v1/newgame' => sub {
+get '/api/newgame' => sub {
     my $self = shift;
     
     my $game = $self->schema->resultset('Game')->create({});
@@ -35,7 +35,7 @@ get '/api/v1/newgame' => sub {
     return $self->render(json => {game_id => $game->id});
 };
 
-get '/api/v1/move/:game_id/:player/:move' => sub {
+get '/api/move/:game_id/:player/:move' => sub {
     my $self = shift;
     my $game_id  = $self->stash('game_id');
     my $player  = $self->stash('player');
