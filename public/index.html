@@ -27,110 +27,107 @@
 </head>
 <body lang="en">
     <div class="container">
-    <h1>TicTacToe</h1>
-    <button id="new-game" class="btn btn-default" type="submit">Start a New Game</button><br>
-    
-    <h2>Messages</h2>
-    <div id="message-box" class="bg-info">
-        Start a new game any time. X always goes first.
-    </div>
-    
-    <div id="game-board">
-        <div>
-            <div id="m1" class="m" style="float: left; border-right: 2px solid black; border-bottom: 2px solid black;"></div>
-            <div id="m2" class="m" style="float: left; border-right: 2px solid black; border-bottom: 2px solid black; border-left: 2px solid black;"></div>
-            <div id="m3" class="m" style="float: left; border-left: 2px solid black; border-bottom: 2px solid black;"></div>
+        <h1>TicTacToe</h1>
+        <button id="new-game" class="btn btn-default" type="submit">Start a New Game</button><br>
+        
+        <h2>Messages</h2>
+        <div id="message-box" class="bg-info">
+            Start a new game any time. X always goes first.
         </div>
-        <div style="clear: both;"></div>
-        <div>
-            <div id="m4" class="m" style="float: left; border-right: 2px solid black; border-bottom: 2px solid black; border-top: 2px solid black;"></div>
-            <div id="m5" class="m" style="float: left; border: 2px solid black;"></div>
-            <div id="m6" class="m" style="float: left; border-left: 2px solid black; border-bottom: 2px solid black; border-top: 2px solid black;"></div>
+        
+        <div id="game-board">
+            <div>
+                <div id="m1" class="m" style="float: left; border-right: 2px solid black; border-bottom: 2px solid black;"></div>
+                <div id="m2" class="m" style="float: left; border-right: 2px solid black; border-bottom: 2px solid black; border-left: 2px solid black;"></div>
+                <div id="m3" class="m" style="float: left; border-left: 2px solid black; border-bottom: 2px solid black;"></div>
+            </div>
+            <div style="clear: both;"></div>
+            <div>
+                <div id="m4" class="m" style="float: left; border-right: 2px solid black; border-bottom: 2px solid black; border-top: 2px solid black;"></div>
+                <div id="m5" class="m" style="float: left; border: 2px solid black;"></div>
+                <div id="m6" class="m" style="float: left; border-left: 2px solid black; border-bottom: 2px solid black; border-top: 2px solid black;"></div>
+            </div>
+            <div style="clear: both;"></div>
+            <div>
+                <div id="m7" class="m" style="float: left; border-right: 2px solid black; border-top: 2px solid black;"></div>
+                <div id="m8" class="m" style="float: left; border-right: 2px solid black; border-top: 2px solid black; border-left: 2px solid black;"></div>
+                <div id="m9" class="m" style="float: left; border-left: 2px solid black; border-top: 2px solid black;"></div>
+            </div>
+            <div style="clear: both;"></div>
         </div>
-        <div style="clear: both;"></div>
-        <div>
-            <div id="m7" class="m" style="float: left; border-right: 2px solid black; border-top: 2px solid black;"></div>
-            <div id="m8" class="m" style="float: left; border-right: 2px solid black; border-top: 2px solid black; border-left: 2px solid black;"></div>
-            <div id="m9" class="m" style="float: left; border-left: 2px solid black; border-top: 2px solid black;"></div>
-        </div>
-        <div style="clear: both;"></div>
-    </div>
-    
-    
-    
-    <script>
-        // current game_id
-        var gameID;
         
-        // since the API auto detects players, we need to keep track of which token to display
-        // X always goes first
-        var playerToken = 'X'; 
-        function nextPlayerToken () {
-            if (playerToken == 'X') {
-                playerToken = 'O';
-            } else {
-                playerToken = 'X';
-            }
-        }
-        
-        // new game button handler
-        $("#new-game").click(function() {
-            $.getJSON( "/api/newgame" )
-                .done(function( json ) {
-                    gameID = json.game_id;
-                    $('#message-box').html( "Starting game_id: " + json.game_id + "<br>" );
-                    $('#message-box').removeClass();
-                    $('#message-box').addClass('bg-success');
-                    
-                    //need to clear all the class m boxes
-                    $(".m").html('');
-                    //reset player
-                    playerToken = 'X';
-                })
-                .fail(function( jqxhr, textStatus, error ) {
-                    var err = textStatus + ", " + error;
-                    $('#message-box').html("Request Failed: " + err);
-                    $('#message-box').removeClass();
-                    $('#message-box').addClass('bg-danger');
-                });
-        });
-        
-        
-        // game board handler
-        $( ".m" ).click(function() {
-    
-            //get the move position from the id
-            var movePos = this.id.charAt(1);
+        <script>
+            // current game_id
+            var gameID;
             
-            $.getJSON( "/api/move/" + gameID + "/" + movePos )
-                .done(function( json ) {
-                    
-                    // substitute X for 0 and O for 1
-                    // improvements to the API could make this better
-                    $('#message-box').html( json.message.replace('0','X').replace('1','O') + "<br>" );
-                  
-                    if (json.success) {
-  
-                          $('#m' + movePos).html(playerToken);
-                          $('#message-box').removeClass();
-                          $('#message-box').addClass('bg-success');
-                          // set the token
-                          nextPlayerToken();
-                    } else {
-                          $('#message-box').removeClass();
-                          $('#message-box').addClass('bg-danger');
-                    }
-                  
-                })
-                .fail(function( jqxhr, textStatus, error ) {
-                    var err = textStatus + ", " + error;
-                    $('#message-box').html( "Request Failed: " + err );
-                    $('#message-box').removeClass();
-                    $('#message-box').addClass('bg-danger');
-                });
-    
-        });
-    </script>
+            // since the API auto detects players, we need to keep track of which token to display
+            // X always goes first
+            var playerToken = 'X'; 
+            function nextPlayerToken () {
+                if (playerToken == 'X') {
+                    playerToken = 'O';
+                } else {
+                    playerToken = 'X';
+                }
+            }
+            
+            // new game button handler
+            $("#new-game").click(function() {
+                $.getJSON( "/api/newgame" )
+                    .done(function( json ) {
+                        gameID = json.game_id;
+                        $('#message-box').html( "Starting game_id: " + json.game_id + "<br>" );
+                        $('#message-box').removeClass();
+                        $('#message-box').addClass('bg-success');
+                        
+                        //need to clear all the class m boxes
+                        $(".m").html('');
+                        //reset player
+                        playerToken = 'X';
+                    })
+                    .fail(function( jqxhr, textStatus, error ) {
+                        var err = textStatus + ", " + error;
+                        $('#message-box').html("Request Failed: " + err);
+                        $('#message-box').removeClass();
+                        $('#message-box').addClass('bg-danger');
+                    });
+            });
+            
+            // game board handler
+            $( ".m" ).click(function() {
+        
+                //get the move position from the id
+                var movePos = this.id.charAt(1);
+                
+                $.getJSON( "/api/move/" + gameID + "/" + movePos )
+                    .done(function( json ) {
+                        
+                        // substitute X for 0 and O for 1
+                        // improvements to the API could make this better
+                        $('#message-box').html( json.message.replace('0','X').replace('1','O') + "<br>" );
+                      
+                        if (json.success) {
+      
+                              $('#m' + movePos).html(playerToken);
+                              $('#message-box').removeClass();
+                              $('#message-box').addClass('bg-success');
+                              // set the token
+                              nextPlayerToken();
+                        } else {
+                              $('#message-box').removeClass();
+                              $('#message-box').addClass('bg-danger');
+                        }
+                      
+                    })
+                    .fail(function( jqxhr, textStatus, error ) {
+                        var err = textStatus + ", " + error;
+                        $('#message-box').html( "Request Failed: " + err );
+                        $('#message-box').removeClass();
+                        $('#message-box').addClass('bg-danger');
+                    });
+        
+            });
+        </script>
     </div>
 </body>
 </html>
