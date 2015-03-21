@@ -23,9 +23,9 @@ helper schema => sub {
     }
 };
 
-get '/' => sub {
+any '/' => sub {
   my $c = shift;
-  $c->render(text => 'TicTacToe API Example');
+  $c->reply->static('index.html');
 };
 
 get '/api/newgame' => sub {
