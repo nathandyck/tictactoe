@@ -23,15 +23,10 @@ sub move {
     my $self = shift;
     my $position = shift;
     
-    #see if there is already a winner
+    # see if we are in an end game condition
     my $status = $self->status;
-    if ($status =~ /Player: [0..1] wins/) {
-        return "Game is already over: $status"
-    }
-    
-    #see if the board is filled
-    if ($self->moves->count == 9) {
-        return "Board is full with no winner. Cat's game.";
+    if ($status ne 'No winner yet') {
+        return $status;
     }
     
     #figure out whos turn it it
@@ -64,6 +59,11 @@ sub status {
     
     #rough logic influenced by: http://curtisquarterly.blogspot.com/2005/04/writing-tic-tac-toe-bot-in-perl.html
     
+    #see if the board is filled
+    if ($self->moves->count == 9) {
+        return "Board is full with no winner. Cat's game.";
+    }
+    
     #check each winning possibilities for each player
     foreach my $win (@{$wins}) {
         
@@ -82,7 +82,7 @@ sub status {
         
     }
     
-    return 'No winner yet';  #whos turn?
+    return 'No winner yet';
 }
 
 
