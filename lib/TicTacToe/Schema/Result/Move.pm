@@ -1,8 +1,7 @@
 package TicTacToe::Schema::Result::Move;
 
-use strict;
-use warnings;
 use local::lib;
+use Modern::Perl;
 
 use base 'DBIx::Class::Core';
 __PACKAGE__->load_components("InflateColumn::DateTime");
