@@ -30,5 +30,6 @@ $game->move(2); # X
 $game->move(5); # O
 is($game->move(3),'Player: 0 wins','Basic position 123 win');
 
+#TODO: loop over with win condition array to test all possibilities
 
 done_testing();
