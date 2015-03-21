@@ -19,6 +19,7 @@ class TicTacToe {
     
     method newgame () {
         my $game = $self->schema->resultset('Game')->create({});
+        
         if ($game) {
             $self->success(1);
             $self->game_id($game->id);
@@ -31,9 +32,9 @@ class TicTacToe {
     
     method move (Int $move) {
         my $game = $self->schema->resultset('Game')->find($self->game_id);
+        
         if ($game) {
             $self->message($game->move($move));
-            
             if (
                 ($self->message eq 'No winner yet') ||
                 ($self->message =~ /^Player: [0..1] wins$/) ||
@@ -48,7 +49,6 @@ class TicTacToe {
             $self->message('Invalid game_id');
         }
     }
-
 }
 
 1;
