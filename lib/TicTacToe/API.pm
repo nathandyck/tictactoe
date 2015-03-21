@@ -1,12 +1,10 @@
 package TicTacToe::API;
 
 use local::lib;
-use FindBin;
-use lib "$FindBin::Bin/..";
 use Modern::Perl;
 use Mojo::Base 'Mojolicious';
 use Mojolicious::Lite;
-use TicTacToe::Schema;
+use Schema;
 
 
 # Global handle for schema connection
