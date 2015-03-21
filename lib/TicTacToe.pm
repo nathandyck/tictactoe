@@ -13,7 +13,7 @@ class TicTacToe {
         required => 1,
         isa => InstanceOf ['DBIx::Class::Schema'],
     );
-    has success => ( is => 'rw', isa => Int);
+    has success => ( is => 'rw', isa => Bool);
     has game_id => ( is => 'rw', isa => Int);
     has message => ( is => 'rw', isa => Str);
     
