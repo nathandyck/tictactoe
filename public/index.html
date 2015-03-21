@@ -104,7 +104,10 @@
             
             $.getJSON( "/api/move/" + gameID + "/" + movePos )
                 .done(function( json ) {
-                    $('#message-box').html( json.message + "<br>" );
+                    
+                    // substitute X for 0 and O for 1
+                    // improvements to the API could make this better
+                    $('#message-box').html( json.message.replace('0','X').replace('1','O') + "<br>" );
                   
                     if (json.success) {
   
