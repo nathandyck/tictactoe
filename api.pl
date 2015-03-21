@@ -62,7 +62,7 @@ get '/api/move/:game_id/:move' => sub {
         
         return $self->render(json => { success => $success, message => $results, game_id => $game->id });
     } else {
-        $self->render(json => { success => \0, message => "Invalid game_id: $game_id" });
+        return $self->render(json => { success => \0, message => "Invalid game_id: $game_id" });
     }
 };
 
