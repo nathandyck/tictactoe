@@ -4,7 +4,8 @@ use local::lib;
 use Modern::Perl;
 use Mojo::Base 'Mojolicious';
 use Mojolicious::Lite;
-use Schema;
+use lib '..';
+use TicTacToe::Schema;
 
 
 # Global handle for schema connection
