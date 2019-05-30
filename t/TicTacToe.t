@@ -7,7 +7,7 @@ use Modern::Perl;
 use Test::More;
 
 
-require_ok('TicTacToe');
+require_ok('TicTacToe::API');
 require_ok('TicTacToe::Schema');
 
 
