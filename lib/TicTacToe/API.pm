@@ -2,7 +2,6 @@ package TicTacToe::API;
 
 use local::lib;
 use Modern::Perl;
-use Mojo::Base 'Mojolicious';
 use Mojolicious::Lite;
 use lib '..';
 use TicTacToe::Schema;
